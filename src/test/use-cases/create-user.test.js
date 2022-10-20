@@ -6,13 +6,13 @@ describe("Create user", () => {
 
   // test creation with mock user1 data
   it("should create a user", () => {
-    const user1 = createUser('João', 'joao@hotmail.com', '123456');
+    const user1 = createUser('Matheus dos Santos Ribeiro Silva', 'matheusribeiro@hotmail.com', '123456');
 
     expect(user1).toHaveProperty("id");
     console.log("id:", user1.id)
-    expect(user1).toHaveProperty("name", "João");
+    expect(user1).toHaveProperty("name", "Matheus dos Santos Ribeiro Silva");
     console.log("name:", user1.name)
-    expect(user1).toHaveProperty("email", "joao@hotmail.com");
+    expect(user1).toHaveProperty("email", "matheusribeiro@hotmail.com");
     console.log("email:", user1.email)
     expect(user1).toHaveProperty("password", "123456");
     console.log("password:", user1.password)
