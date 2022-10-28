@@ -1,11 +1,11 @@
-import createUser from '../../use-cases/create-user.js';
+import CreateUser from '../../use-cases/create-user.js';
 import AccountRepository from '../../repository/account.repository.js';
 
 // to test the user creation, use the following command: node src\test\use-cases\account.repository.test.js
 
 const repository = new AccountRepository();
 
-const createUserTest = new createUser(repository);
+const createUserTest = new CreateUser(repository);
 
 await createUserTest.execute({name:'Matheus dos Santos Ribeiro Silva', email: 'matheusribeiro@gmail.com', password: '12345678'});
 

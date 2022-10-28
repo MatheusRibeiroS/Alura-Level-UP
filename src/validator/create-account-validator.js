@@ -1,56 +1,93 @@
 import validateIfEmailAlreadyExists from "./validate-if-email-exists.validator.js";
 
-export default async function createAccountValidator(values) {
-  let errorLog = {};
-  let errors = [];
+export default class createAccountValidator {
 
-  let errorsObject = {};
-
-  if (!values.name) {
-    errors.push({
-      field: 'name',
-      message: 'the name field cannot be empty',
-    });
+  constructor(values) {
+    this.values = values;
   }
 
-  if (!values.password) {
-    errors.push({
-      field: 'password',
-      message: 'Password is required',
-    });
-  } else if (values.password.length < 8) {
-    errors.push({
-      field: 'password',
-      message: 'Password must have at least 8 characters',
-    });
+  async #validateName(name, errors) {
+    if (!name) {
+      errors.push({
+        field: 'name',
+        message: 'the name field cannot be empty',
+      });
+    }
+
+    return null;
   }
 
-  if (!values.email) {
-    errorsObject.field = 'email';
-    errorsObject.message = 'Email is required';
-    errors.push(errorsObject);
-  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-    errors.push({
-      field: 'email',
-      message: 'Email address is invalid',
-    });
-  }
-  
+  async #validatePassword(password, errors) {
+    if (!password) {
+      return errors.push({
+        field: 'password',
+        message: 'Password is required',
+      });
+    }
 
-  // verify if the account email already exists
-  const existsEmail = await validateIfEmailAlreadyExists(values.email);
-  if (existsEmail) {
-    errors.push(existsEmail);
-  }
-
-  if (errors.length > 0) {
-    errorLog.temErro = true;
-  } else {
-    errorLog.temErro = false;
+    if (password.length < 8) {
+      return errors.push({
+        field: 'password',
+        message: 'Password must have at least 8 characters',
+      });
+    }
+    
+    return null;
   }
 
-  errorLog.errors = errors;
-  errorLog.data = values;
+  async #validateEmail(email, errors) {
+    if (!email) {
+      return errors.push({
+        field: 'email',
+        message: 'Email is required',
+      });
+    }
 
-  return errorLog;
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      return errors.push({
+        field: 'email',
+        message: 'Email address is invalid',
+      });
+    }
+
+    // verify if the account email already exists
+    const existsEmail = await validateIfEmailAlreadyExists(email);
+    if (existsEmail) {
+      return errors.push(existsEmail);
+    }
+
+    return null;
+  }
+
+  async execute(values) {
+    const { name, email, password } = values;
+    let errors = [];
+    let errorLog = {};
+
+    if (await this.#validateName(name, errors)) {
+      errorLog.temErro = true;
+      errorLog.data = errors;
+    }
+
+    
+    if (await this.#validatePassword(password, errors)) {
+      errorLog.data = errors;
+    }
+
+    if (await this.#validateEmail(email, errors)) {
+      errorLog.temErro = true;
+      errorLog.data = errors;
+    }
+
+    if (errors.length > 0) {
+      errorLog.temErro = true;
+    } else {
+      errorLog.temErro = false;
+    }
+
+    errorLog.errors = errors;
+    errorLog.data = values;
+
+    return errorLog;
+  }
 }
