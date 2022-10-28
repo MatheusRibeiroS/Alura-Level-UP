@@ -1,4 +1,4 @@
-import readFromFile from "../../data/read-from-file.js";
+import readFromFile from "../repository/read-from-file.js";
 
 export default async function validateIfEmailAlreadyExists(email) {
   let errorsObject = {};

@@ -1,30 +1,31 @@
 import { randomUUID } from 'crypto';
-import saveOnFile from '../../data/save-on-file.js';
+import saveOnFile from '../repository/save-on-file.js';
 import createAccountValidator from '../validator/create-account-validator.js';
-
+import AccountEntity from '../entities/account.entity.js';
 
 export default async function createUser(name, email, password) {
-  // user object
-  const user = {
-    name,
-    email,
-    password,
-    creation_date: new Date().toISOString().substring(0, 10),
-  }
 
-  // generate user id and add to user object
-  user['id'] = randomUUID();
-
-  const userValidationLog = await createAccountValidator(user);
+  const userValidationLog = await createAccountValidator({ name, email, password });
+  console.log(userValidationLog);
 
   if (userValidationLog.temErro) {
-    console.log(userValidationLog);
+    console.log(userValidationLog.data);
   } else if (!userValidationLog.temErro) {
+
     console.log('valid account:', userValidationLog.data);
     console.log(userValidationLog);
-    await saveOnFile(user);
-    console.log('account saved!\n');
-  }
 
-  return user;
+    const account = new AccountEntity({
+      // generate user id and add to user object
+      id: randomUUID(),
+      name,
+      email,
+      password,
+      creation_date: new Date()
+    });
+
+    await saveOnFile(account);
+    console.log('account saved!\n');
+    return account;
+  }
 }
