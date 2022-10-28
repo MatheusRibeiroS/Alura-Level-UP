@@ -11,13 +11,7 @@ export default async function createAccountValidator(values) {
       field: 'name',
       message: 'the name field cannot be empty',
     });
-  } else if (!values.name) {
-    errors.push({
-      field: 'name',
-      message: 'the name field is required',
-    });
   }
-
 
   if (!values.password) {
     errors.push({

@@ -1,11 +1,11 @@
 import { randomUUID } from 'crypto';
-import { save } from '../../data/account.repository.js';
+import saveOnFile from '../../data/save-on-file.js';
 import createAccountValidator from '../validator/create-account-validator.js';
 
 
 export default async function createUser(name, email, password) {
   // user object
-  let user = {
+  const user = {
     name,
     email,
     password,
@@ -22,7 +22,7 @@ export default async function createUser(name, email, password) {
   } else if (!userValidationLog.temErro) {
     console.log('valid account:', userValidationLog.data);
     console.log(userValidationLog);
-    await save(user);
+    await saveOnFile(user);
     console.log('account saved!\n');
   }
 

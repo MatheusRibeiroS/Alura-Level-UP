@@ -1,14 +1,13 @@
-import { list } from "../../data/account.repository.js";
+import readFromFile from "../../data/read-from-file.js";
 
 export default async function validateIfEmailAlreadyExists(email) {
   let errorsObject = {};
-  const accounts = await list();
+  const accounts = await readFromFile();
+  let emailExists = accounts.some(account => account.email === email);
 
-  for (let i = 0; i < accounts.length; i++) {
-    if (accounts[i]?.email === email) {
-      errorsObject.field = 'email';
-      errorsObject.message = 'Email already exists';
-    }
+  if (emailExists) {
+    errorsObject.field = 'email';
+    errorsObject.message = 'Email already exists';
   }
   return Object.entries(errorsObject).length > 0 ? errorsObject : null;
 }
