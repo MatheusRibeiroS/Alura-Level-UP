@@ -1,6 +1,4 @@
-import fs, { existsSync } from 'fs';
-import { readFile, writeFile } from 'fs/promises';
-import save from './save-on-file.js';
+import { readFile } from 'fs/promises';
 
 const accountsPath = './data/accounts.json';
 
