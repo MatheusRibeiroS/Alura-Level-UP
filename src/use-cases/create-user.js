@@ -1,30 +1,36 @@
 import { randomUUID } from 'crypto';
-import { save } from '../../data/account.repository.js';
 import createAccountValidator from '../validator/create-account-validator.js';
+import AccountEntity from '../entities/account.entity.js';
 
+export default class CreateUser {
 
-export default async function createUser(name, email, password) {
-  // user object
-  let user = {
-    name,
-    email,
-    password,
-    creation_date: new Date().toISOString().substring(0, 10),
+  constructor(AccountRepository) {
+    this.repository = AccountRepository;
   }
 
-  // generate user id and add to user object
-  user['id'] = randomUUID();
+  async execute({ name, email, password }) {
+    const validator = new createAccountValidator();
+    const userValidationLog  = await validator.execute({ name, email, password });
 
-  const userValidationLog = await createAccountValidator(user);
+    console.log(userValidationLog);
+    if (userValidationLog.temErro) {
+      console.log('user data:', userValidationLog.data, '\n');
+      
+    } else if (!userValidationLog.temErro) {
+      console.log('valid account:', userValidationLog.data, '\n');
 
-  if (userValidationLog.temErro) {
-    console.log(userValidationLog);
-  } else if (!userValidationLog.temErro) {
-    console.log('valid account:', userValidationLog.data);
-    console.log(userValidationLog);
-    await save(user);
-    console.log('account saved!\n');
+      const account = new AccountEntity({
+        // generate user id and add to user object
+        id: randomUUID(),
+        name,
+        email,
+        password,
+        creation_date: new Date()
+      });
+
+      await this.repository.save(account);
+      console.log('account saved!\n');
+      return account;
+    }
   }
-
-  return user;
 }
