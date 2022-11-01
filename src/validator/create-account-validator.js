@@ -64,20 +64,9 @@ export default class createAccountValidator {
     let errors = [];
     let errorLog = {};
 
-    if (await this.#validateName(name, errors)) {
-      errorLog.temErro = true;
-      errorLog.data = errors;
-    }
-
-    
-    if (await this.#validatePassword(password, errors)) {
-      errorLog.data = errors;
-    }
-
-    if (await this.#validateEmail(email, errors)) {
-      errorLog.temErro = true;
-      errorLog.data = errors;
-    }
+    await this.#validateName(name, errors);
+    await this.#validatePassword(password, errors);
+    await this.#validateEmail(email, errors);
 
     if (errors.length > 0) {
       errorLog.temErro = true;
