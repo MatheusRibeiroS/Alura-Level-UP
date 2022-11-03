@@ -1,0 +1,25 @@
+{
+  "_id": {
+    "$oid": "5a6a5b0b0f5ae10001c5b1b0"
+  },
+  "name": "Bryan",
+  "email": "bryan@gmail.com",
+  "password": "123456",
+  "creation_date": {
+    "$date": "2018-01-23T19:00:11.000Z"
+  },
+  "posts": [
+    {
+      "post_id": {
+        "$oid": "5a6a5b0b0f5ae10001c5b1b1"
+      }
+    },
+    {
+      "title": "My second post",
+      "content": "This is my second post",
+      "creation_date": {
+        "$date": "2018-01-23T19:00:11.000Z"
+      }
+    }
+  ]
+}
