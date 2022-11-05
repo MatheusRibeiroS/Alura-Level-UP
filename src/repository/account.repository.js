@@ -1,15 +1,24 @@
 import 'dotenv/config'; // import environment variables (it needs to be the first import)
-import saveOnFile from "./save-on-file.js";
-import readFromFile from "./read-from-file.js";
+import AccountEntity from "../entities/account.entity.js";
 
 const accountsPath = process.env.STORAGE_FILE_PATH;
 
 export default class AccountRepository {
-  save(account) {
-    saveOnFile(account, accountsPath);
+  #database;
+
+  constructor(database) {
+    this.#database = database;
   }
 
-  list() {
-    return readFromFile(accountsPath);
+  async save(account) {
+    const db = await this.#database;
+    await db.insertOne(account);
+    this.list();
+    return account;
+  }
+
+  async list() {
+    const users = await this.#database.find().toArray();
+      return users.map((account) => new AccountEntity(account));
   }
 }
