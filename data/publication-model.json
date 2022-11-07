@@ -1,0 +1,14 @@
+{
+  "id": {
+    "oid": "5a5a5a5a5a5a5a5a5a5a5a5a"
+  },
+  "text": "Hello World",
+  "author_id": {
+    "oid": "5a5a5a5a5a5a5a5a5a5a5a5a"
+  },
+  "creation_date": {
+    "$date": {
+      "$numberLong": "1514764800000"
+    }
+  }
+}

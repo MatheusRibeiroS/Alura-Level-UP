@@ -35,7 +35,7 @@ export default class createAccountValidator {
     return null;
   }
 
-  async #validateEmail(email, errors) {
+  async #validateEmail(email, errors, database) {
     if (!email) {
       return errors.push({
         field: 'email',
@@ -51,7 +51,7 @@ export default class createAccountValidator {
     }
 
     // verify if the account email already exists
-    const existsEmail = await validateIfEmailAlreadyExists(email);
+    const existsEmail = await validateIfEmailAlreadyExists(email, database);
     if (existsEmail) {
       return errors.push(existsEmail);
     }
@@ -59,25 +59,14 @@ export default class createAccountValidator {
     return null;
   }
 
-  async execute(values) {
+  async execute(values, database) {
     const { name, email, password } = values;
     let errors = [];
     let errorLog = {};
 
-    if (await this.#validateName(name, errors)) {
-      errorLog.temErro = true;
-      errorLog.data = errors;
-    }
-
-    
-    if (await this.#validatePassword(password, errors)) {
-      errorLog.data = errors;
-    }
-
-    if (await this.#validateEmail(email, errors)) {
-      errorLog.temErro = true;
-      errorLog.data = errors;
-    }
+    await this.#validateName(name, errors);
+    await this.#validatePassword(password, errors);
+    await this.#validateEmail(email, errors, database);
 
     if (errors.length > 0) {
       errorLog.temErro = true;

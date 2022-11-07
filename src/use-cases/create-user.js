@@ -8,16 +8,14 @@ export default class CreateUser {
     this.repository = AccountRepository;
   }
 
-  async execute({ name, email, password }) {
+  async execute({ name, email, password }, database) {
     const validator = new createAccountValidator();
-    const userValidationLog  = await validator.execute({ name, email, password });
+    const userValidationLog  = await validator.execute({ name, email, password }, database);
 
     console.log(userValidationLog);
     if (userValidationLog.temErro) {
-      console.log('user data:', userValidationLog.data, '\n');
-      
-    } else if (!userValidationLog.temErro) {
-      console.log('valid account:', userValidationLog.data, '\n');
+      return userValidationLog.data;
+    } else {
 
       const account = new AccountEntity({
         // generate user id and add to user object
@@ -25,11 +23,10 @@ export default class CreateUser {
         name,
         email,
         password,
-        creation_date: new Date()
+        creation_date: new Date().toISOString().substring(0, 10)
       });
 
       await this.repository.save(account);
-      console.log('account saved!\n');
       return account;
     }
   }
