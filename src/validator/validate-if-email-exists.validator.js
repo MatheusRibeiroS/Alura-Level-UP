@@ -1,9 +1,7 @@
-import AccountRepository from "../repository/account.repository.js";
 
-export default async function validateIfEmailAlreadyExists(email, database) {
+export default async function validateIfEmailAlreadyExists(email, repository) {
   let errorsObject = {};
-  const accountRepository = new AccountRepository(database);
-  const accounts = await accountRepository.list();
+  const accounts = await repository.list();
   let emailExists = accounts.some(account => account.email === email);
 
   if (emailExists) {

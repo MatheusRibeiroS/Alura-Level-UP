@@ -11,7 +11,7 @@ export default class AccountRepository {
   }
 
   async save(account) {
-    const db = await this.#database;
+    const db = this.#database;
     await db.insertOne(account);
     this.list();
     return account;

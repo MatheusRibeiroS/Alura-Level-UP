@@ -8,8 +8,6 @@ export default class DatabaseConnection {
     try {
     this.#connection[url] = await client.connect();
     console.log('Connected successfully to server');
-    const db = client.db(database);
-    db.collection(collection);
     return this.#connection[url].db(database).collection(collection);;
     } catch (error) {
       throw new Error("Error connecting to the specified database");

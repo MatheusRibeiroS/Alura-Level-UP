@@ -12,19 +12,15 @@ const database = await DatabaseConnection.createConnection({
   collection: mongoDB_collection
 });
 
-// const db = await DatabaseConnection.createConnection({ mongoDB_URL, mongoDB_database, mongoDB_collection });
-// const repository = new UserRepository(db);
-// const createUser = new CreateUserUseCase(repository);
-
 // to test the user creation, use the following command: node src\test\use-cases\account.repository.test.js
 
 const repository = new AccountRepository(database);
 
 const createUserTest = new CreateUser(repository);
 
-await createUserTest.execute({name:'Matheus dos Santos Ribeiro Silva', email: 'matheusribeiro@gmail.com', password: '12345678'}, database);
+await createUserTest.execute({name:'Matheus dos Santos Ribeiro Silva', email: 'matheusribeiro@gmail.com', password: '12345678'}, repository);
 
-await createUserTest.execute({name:'Maria da Silva', email: 'maria@gmail.com', password: '12345678'}, database);
+await createUserTest.execute({name:'Maria da Silva', email: 'maria@gmail.com', password: '12345678'}, repository);
 
 // user 3 should return some errors if you uncomment
 
@@ -33,6 +29,6 @@ await createUserTest.execute({name:'Maria da Silva', email: 'maria@gmail.com', p
 // 2. Email address is invalid (because '@' and '.' are missing)
 // 3. Password must have at least 8 characters
 
-await createUserTest.execute({name:'', email: 'joaopaulogmailcom', password: '1234567'}, database);
+// await createUserTest.execute({name:'', email: 'joaopaulogmailcom', password: '1234567'}, repository);
 
 
