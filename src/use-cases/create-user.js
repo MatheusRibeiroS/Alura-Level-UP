@@ -8,9 +8,9 @@ export default class CreateUser {
     this.repository = AccountRepository;
   }
 
-  async execute({ name, email, password }, repository) {
+  async execute({ name, email, password }) {
     const validator = new createAccountValidator();
-    const userValidationLog  = await validator.execute({ name, email, password }, repository);
+    const userValidationLog  = await validator.execute({ name, email, password }, this.repository);
 
     console.log(userValidationLog);
     if (userValidationLog.temErro) {

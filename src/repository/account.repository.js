@@ -1,8 +1,6 @@
 import 'dotenv/config'; // import environment variables (it needs to be the first import)
 import AccountEntity from "../entities/account.entity.js";
 
-const accountsPath = process.env.STORAGE_FILE_PATH;
-
 export default class AccountRepository {
   #database;
 
