@@ -8,7 +8,6 @@ const mongoDB_URL = process.env.MONGODB_URL;
 const database = await DatabaseConnection.createConnection({
   url: mongoDB_URL,
   database: mongoDB_database,
-  collection: "Users"
 });
 
 // to test the user creation, use the following command: node src\test\use-cases\account.repository.test.js

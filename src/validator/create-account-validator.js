@@ -69,9 +69,9 @@ export default class createAccountValidator {
     await this.#validateEmail(email, errors, repository);
 
     if (errors.length > 0) {
-      errorLog.temErro = true;
+      errorLog.hasErrors = true;
     } else {
-      errorLog.temErro = false;
+      errorLog.hasErrors = false;
     }
 
     errorLog.errors = errors;

@@ -1,6 +1,6 @@
-import { randomUUID } from 'crypto';
 import createAccountValidator from '../validator/create-account-validator.js';
 import AccountEntity from '../entities/account.entity.js';
+import { BadRequestError } from '../http/errors/bad-request.error.js';
 
 export default class CreateUser {
 
@@ -13,13 +13,12 @@ export default class CreateUser {
     const userValidationLog  = await validator.execute({ name, email, password }, this.repository);
 
     console.log(userValidationLog);
-    if (userValidationLog.temErro) {
-      return userValidationLog.data;
+    
+    if (userValidationLog.hasErrors) {
+      throw new BadRequestError('Bad Request', userValidationLog.errors);
     } else {
 
       const account = new AccountEntity({
-        // generate user id and add to user object
-        id: randomUUID(),
         name,
         email,
         password,
