@@ -1,6 +1,6 @@
 import CreateUser from "../use-cases/create-user.js";
 
-export class CreateUserRequest {
+export default class CreateUserRequest {
   #userRepository;
 
   constructor(userRepository) {
