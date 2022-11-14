@@ -6,6 +6,8 @@
   "author_id": {
     "oid": "5a5a5a5a5a5a5a5a5a5a5a5a"
   },
+  "title": "My second post",
+  "content": "This is my second post",
   "creation_date": {
     "$date": {
       "$numberLong": "1514764800000"
