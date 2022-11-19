@@ -1,5 +1,6 @@
 export default class AccountEntity {
-  constructor({ name, email, password, creation_date}) {
+  constructor({ id, name, email, password, creation_date}) {
+    this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;

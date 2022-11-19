@@ -1,32 +1,61 @@
-import CreateUser from '../../use-cases/create-user.js';
-import AccountRepository from '../../repository/account.repository.js';
-import DatabaseConnection from '../../infra/database-connection.js';
+import {
+  describe, expect, it, jest,
+} from '@jest/globals';
+import CreateUser from '../../use-cases/create-user';
+import accountRepository from '../../repository/account.repository';
+import DatabaseConnection from '../../infra/database-connection';
 
-const mongoDB_database = process.env.MONGODB_DATABASE;
-const mongoDB_URL = process.env.MONGODB_URL;
+describe("test user creation", () => {
 
-const database = await DatabaseConnection.createConnection({
-  url: mongoDB_URL,
-  database: mongoDB_database,
-});
+  const mockRepository = {
+    list: () => [],
+    save: jest.fn(),
+  };
 
-// to test the user creation, use the following command: node src\test\use-cases\account.repository.test.js
+  // test user creation without the database connection (mocked)
 
-const repository = new AccountRepository(database);
+  it("should return the mock created user", async () => {
 
-const createUserTest = new CreateUser(repository);
+    const createUser = new CreateUser(mockRepository);
 
-await createUserTest.execute({name:'Matheus dos Santos Ribeiro Silva', email: 'matheusribeiro@gmail.com', password: '12345678'});
+    const userMock = await createUser.execute({
+      name: "Matheus Ribeiro",
+      email: "matheusribeiros@gmail.com",
+      password: "12345678",
+    });
 
-await createUserTest.execute({name:'Maria da Silva', email: 'maria@gmail.com', password: '12345678'});
+    expect(userMock).toStrictEqual({
+      id: expect.any(String),
+      name: "Matheus Ribeiro",
+      email: "matheusribeiros@gmail.com",
+      creation_date: expect.stringMatching(/\d{4}-\d{2}-\d{2}/),
+    })
+  })
 
-// user 3 should return some errors if you uncomment
+  // teste user creation going through the wholem process of creatiing, validating and saving on the database
+  it("should return the created and saved in database user", async () => {
 
-// expected errors: 
-// 1. the name field cannot be empty
-// 2. Email address is invalid (because '@' and '.' are missing)
-// 3. Password must have at least 8 characters
+    const url = process.env.MONGODB_URL;
+    const database = process.env.MONGODB_DATABASE;
 
-// await createUserTest.execute({name:'', email: 'joaopaulogmailcom', password: '1234567'}, repository);
+    const connection = await DatabaseConnection.createConnection({ url, database });
 
+    const repository = new accountRepository(connection);
+
+    const createUser = new CreateUser(repository);
+
+    const userMock = await createUser.execute({
+      name: "Matheus Ribeiro",
+      email: "matheusribeiros@gmail.com",
+      password: "12345678",
+    });
+
+    expect(userMock).toStrictEqual({
+      id: expect.any(String),
+      name: "Matheus Ribeiro",
+      email: "matheusribeiros@gmail.com",
+      creation_date: expect.stringMatching(/\d{4}-\d{2}-\d{2}/),
+    })
+  })
+})
 

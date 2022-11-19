@@ -14,7 +14,7 @@ const accountRepository = new AccountRepository(connection);
 
 const createUserRequest = new CreateUserRequest(accountRepository);
 
-const removeAccountRequest = new RemoveAccountRequest();
+const removeAccountRequest = new RemoveAccountRequest(accountRepository);
 
 accountRoutes.post('/account', createUserRequest.execute.bind(createUserRequest));
 accountRoutes.delete('/account/:id', removeAccountRequest.execute.bind(removeAccountRequest));
