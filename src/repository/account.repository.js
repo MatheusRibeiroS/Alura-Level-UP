@@ -19,6 +19,13 @@ export default class AccountRepository {
     return users.map((account) => new AccountEntity(account));
   }
 
+  async findOne(id) {
+    const account = await this.#accountCollection.findOne({
+      _id: id
+    });
+    return new AccountEntity(account);
+  }
+
   async delete(id) {
     await this.#accountCollection.deleteOne({ _id: id });
   }
