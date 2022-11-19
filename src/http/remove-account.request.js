@@ -8,7 +8,7 @@ export default class RemoveAccountRequest {
   async execute(request, response) {
     try {
       const id = request.params.id;
-      // find one account by idd)
+      // find one account by id
         await this.#accountRepository.delete(id);
         return response.status(200).send({ message: `Account with id: ${id} removed` });
 
