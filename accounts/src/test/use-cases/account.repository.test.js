@@ -32,7 +32,7 @@ describe("test user creation", () => {
     })
   })
 
-  // teste user creation going through the wholem process of creatiing, validating and saving on the database
+  // test user creation going through the whole process of creatiing, validating and saving on the database
   it("should return the created and saved in database user", async () => {
 
     const url = process.env.MONGODB_URL;

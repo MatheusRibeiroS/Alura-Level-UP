@@ -36,9 +36,6 @@ describe("should test the account creation validator", () => {
         password: "12345678"
       }
     })
-
-    expect(userValidationLog.hasErrors).toBe(false); 
-    expect(userValidationLog.errors).toHaveLength(0);
   })
 
   it("should return the validation object with errors", async () => {
@@ -67,8 +64,5 @@ describe("should test the account creation validator", () => {
         ],
         data: { name: '', email: '', password: '123456' }
     })
-
-    expect(userValidationLog.hasErrors).toBe(true);
-    expect(userValidationLog.errors).toHaveLength(3);
   })
 })
