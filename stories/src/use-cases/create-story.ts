@@ -8,8 +8,8 @@ export default class CreateStory {
     return await this._StoryRepository.save({ ...story });
   }
 
-  async update(storyId: string, data: any) {
-    return await this._StoryRepository.update(storyId, data);;
+  async update(storyId: string, data: Partial<StoryInterface>) {
+    return await this._StoryRepository.update(storyId, data);
   }
 
   async delete(storyId: string) {
