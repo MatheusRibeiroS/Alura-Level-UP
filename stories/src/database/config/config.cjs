@@ -1,6 +1,4 @@
-// require dotenv
 require('dotenv').config()
-// dotenv.config();
 
 module.exports = {
   development: {
