@@ -1,4 +1,4 @@
-export class StoryRepository {
+export default class StoryRepository {
   constructor(private _database: any) {}
 
   async create(story: Object) {
