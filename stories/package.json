@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
@@ -33,5 +34,8 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.25.8",
     "sequelize-cli": "^6.5.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3"
   }
 }
