@@ -2,25 +2,25 @@ import { StoryInterface } from "../interfaces/interfaces";
 
 export default class CreateStory {
 
-  constructor(private _StoryRepository: any) {}
+  constructor(private storyRepository: any) {}
 
   async create(story: StoryInterface) {
-    return await this._StoryRepository.save({ ...story });
+    return await this.storyRepository.save({ ...story });
   }
 
   async update(storyId: string, data: Partial<StoryInterface>) {
-    return await this._StoryRepository.update(storyId, data);
+    return await this.storyRepository.update(storyId, data);
   }
 
   async delete(storyId: string) {
-    await this._StoryRepository.delete(storyId);
+    await this.storyRepository.delete(storyId);
   }
 
   async getAll() {
-    return await this._StoryRepository.getAll();
+    return await this.storyRepository.getAll();
   }
 
   async findOne(storyId: string) {
-    return await this._StoryRepository.findOne(storyId);
+    return await this.storyRepository.findOne(storyId);
   }
 }

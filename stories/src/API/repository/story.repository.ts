@@ -1,31 +1,31 @@
 export default class StoryRepository {
-  constructor(private _database: any) {}
+  constructor(private database: any) {}
 
   async create(story: Object) {
-    return await this._database.Stories.create(story);
+    return await this.database.Stories.create(story);
   }
 
   async update(storyId: string, data: any) {
-    const updatedStory = await this._database.Stories.update(...data, {
+    const updatedStory = await this.database.Stories.update(...data, {
       where: { id: storyId },
     });
     return updatedStory;
   }
 
   async save(account: Object) {
-    await this._database.insertOne(account);
+    await this.database.Stories.insertOne(account);
     return account;
   }
 
   async getAll() {
-    return await this._database.Stories.findAll();
+    return await this.database.Stories.findAll();
   }
 
   async findOne(storyId: string) {
-    return await this._database.findOne({ where: { id: storyId } });
+    return await this.database.Stories.findOne({ where: { id: storyId } });
   }
 
   async delete(storyId: string) {
-    await this._database.Stories.destroy({ where: { id: storyId } });
+    await this.database.Stories.destroy({ where: { id: storyId } });
   }
 }
