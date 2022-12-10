@@ -1,6 +1,8 @@
-import { StoryInterface } from "../../interfaces/interfaces.js";
-import { StoryEntity } from "../../entities/story.entity.js";
 import { CreateStoryDTO } from "../../dtos/create-story.dto.js";
+// Story entity is used when all data for a created story on the database is mandatory
+import { StoryEntity } from "../../entities/story.entity.js";
+// same structure as the Story Entity but it has some optional database properties 
+import { StoryInterface } from "../../interfaces/interfaces.js";
 
 export default class StoryRepository {
   constructor(private readonly database: any) {}
