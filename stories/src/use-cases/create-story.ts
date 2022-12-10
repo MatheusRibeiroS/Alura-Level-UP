@@ -1,27 +1,11 @@
-import { StoryInterface } from "../interfaces/interfaces.js";
-import { CreateStoryDTO } from "../dtos/create-story-dto.js";
+import { StoryEntity } from "../entities/story.entity.js";
+import { CreateStoryDTO } from "../dtos/create-story.dto.js";
+import StoryRepository from "../API/repository/story.repository.js";
 
-export default class CreateStory {
+export class CreateStory {
+  constructor(private readonly storyRepository: StoryRepository) {}
 
-  constructor(private storyRepository: any) {}
-
-  async create(story: CreateStoryDTO) : Promise<StoryInterface> {
-    return await this.storyRepository.save({ ...story });
-  }
-
-  async update(storyId: string, data: Partial<StoryInterface>) {
-    return await this.storyRepository.update(storyId, data);
-  }
-
-  async delete(storyId: string): Promise<void> {
-    await this.storyRepository.delete(storyId);
-  }
-
-  async getAll(): Promise<StoryInterface[]> {
-    return await this.storyRepository.getAll();
-  }
-
-  async findOne(storyId: string): Promise<StoryInterface> {
-    return await this.storyRepository.findOne(storyId);
+  async create(story: CreateStoryDTO) : Promise<StoryEntity> {
+    return await this.storyRepository.create(story);
   }
 }

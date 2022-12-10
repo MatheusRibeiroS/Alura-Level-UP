@@ -1,31 +1,30 @@
-export default class StoryRepository {
-  constructor(private database: any) {}
+import { StoryInterface } from "../../interfaces/interfaces.js";
+import { StoryEntity } from "../../entities/story.entity.js";
+import { CreateStoryDTO } from "../../dtos/create-story.dto.js";
 
-  async create(story: Object) {
-    return await this.database.Stories.create(story);
+export default class StoryRepository {
+  constructor(private readonly database: any) {}
+
+  async create(storyData: CreateStoryDTO): Promise<StoryEntity> {
+    return await this.database.Stories.create(storyData);
   }
 
-  async update(storyId: string, data: any) {
-    const updatedStory = await this.database.Stories.update(...data, {
+  async update(storyId: string, data: Partial<StoryInterface>): Promise<StoryEntity> {
+    const updatedStory = await this.database.Stories.update(data, {
       where: { id: storyId },
     });
     return updatedStory;
   }
 
-  async save(account: Object) {
-    await this.database.Stories.insertOne(account);
-    return account;
-  }
-
-  async getAll() {
+  async getAll(): Promise<StoryEntity[]> {
     return await this.database.Stories.findAll();
   }
 
-  async findOne(storyId: string) {
+  async findOne(storyId: string): Promise<StoryEntity> {
     return await this.database.Stories.findOne({ where: { id: storyId } });
   }
 
-  async delete(storyId: string) {
+  async delete(storyId: string): Promise<void> {
     await this.database.Stories.destroy({ where: { id: storyId } });
   }
 }
