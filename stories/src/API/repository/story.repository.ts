@@ -1,31 +1,32 @@
-export default class StoryRepository {
-  constructor(private _database: any) {}
+import { CreateStoryDTO } from "../../dtos/create-story.dto.js";
+// Story entity is used when all properties for a created story on the database are mandatory
+import { StoryEntity } from "../../entities/story.entity.js";
+// same structure as the Story Entity but it has some optional database properties 
+import { StoryInterface } from "../../interfaces/interfaces.js";
 
-  async create(story: Object) {
-    return await this._database.Stories.create(story);
+export default class StoryRepository {
+  constructor(private readonly database: any) {}
+
+  async create(storyData: CreateStoryDTO): Promise<StoryEntity> {
+    return await this.database.Stories.create(storyData);
   }
 
-  async update(storyId: string, data: any) {
-    const updatedStory = await this._database.Stories.update(...data, {
+  async update(storyId: string, data: Partial<StoryInterface>): Promise<StoryEntity> {
+    const updatedStory = await this.database.Stories.update(data, {
       where: { id: storyId },
     });
     return updatedStory;
   }
 
-  async save(account: Object) {
-    await this._database.insertOne(account);
-    return account;
+  async getAll(): Promise<StoryEntity[]> {
+    return await this.database.Stories.findAll();
   }
 
-  async getAll() {
-    return await this._database.Stories.findAll();
+  async findOne(storyId: string): Promise<StoryEntity> {
+    return await this.database.Stories.findOne({ where: { id: storyId } });
   }
 
-  async findOne(storyId: string) {
-    return await this._database.findOne({ where: { id: storyId } });
-  }
-
-  async delete(storyId: string) {
-    await this._database.Stories.destroy({ where: { id: storyId } });
+  async delete(storyId: string): Promise<void> {
+    await this.database.Stories.destroy({ where: { id: storyId } });
   }
 }
