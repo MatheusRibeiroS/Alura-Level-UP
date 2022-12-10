@@ -1,11 +1,11 @@
-import { StoryEntity } from "../entities/story.entity.js";
+import { StoryInterface } from "../interfaces/interfaces.js";
 import { CreateStoryDTO } from "../dtos/create-story.dto.js";
 import StoryRepository from "../API/repository/story.repository.js";
 
 export class CreateStory {
   constructor(private readonly storyRepository: StoryRepository) {}
 
-  async create(story: CreateStoryDTO) : Promise<StoryEntity> {
+  async create(story: CreateStoryDTO) : Promise<StoryInterface> {
     return await this.storyRepository.create(story);
   }
 }
