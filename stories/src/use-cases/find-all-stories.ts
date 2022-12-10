@@ -1,10 +1,10 @@
-import { StoryInterface } from "../interfaces/interfaces.js";
-import { CreateStoryDTO } from "../dtos/create-story.dto.js";
+import StoryRepository from "../API/repository/story.repository.js";
+import { StoryEntity } from "../entities/story.entity.js";
 
 export class FindAllStories {
-  constructor(private readonly storyRepository: any) {}
+  constructor(private readonly storyRepository: StoryRepository) {}
 
-  async getAll(): Promise<StoryInterface[]> {
+  async getAll(): Promise<StoryEntity[]> {
     return await this.storyRepository.getAll();
   }
 }
