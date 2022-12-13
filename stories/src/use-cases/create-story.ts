@@ -1,5 +1,5 @@
 import { StoryInterface } from "../interfaces/interfaces.js";
-import { CreateStoryDTO } from "../dtos/create-story.dto.js";
+import { CreateStoryDTO } from "../module/stories/dtos/create-story.dto.js";
 import StoryRepository from "../API/repository/story.repository.js";
 
 export class CreateStory {

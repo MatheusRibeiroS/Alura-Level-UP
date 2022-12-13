@@ -1,4 +1,4 @@
-import { UpdateStoryDTO } from "../dtos/update-story.dto.js";
+import { UpdateStoryDTO } from "../module/stories/dtos/update-story.dto.js";
 import StoryRepository from "../API/repository/story.repository.js";
 import { StoryInterface } from "../interfaces/interfaces.js";
 
