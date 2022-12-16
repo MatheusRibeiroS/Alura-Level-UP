@@ -1,5 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { StoriesService } from '../service/stories.service.js';
+import { CreateStoryDTO } from '../dtos/create-story.dto.js';
+import { UpdateStoryDTO } from '../dtos/update-story.dto.js';
 
 @Controller('stories')
 export class StoriesController {
@@ -16,12 +18,17 @@ export class StoriesController {
   }
 
   @Post()
-  create(@Body() story: any) {
+  create(@Body() story: CreateStoryDTO) {
     return this.storiesService.create(story);
   }
 
-  @Get(':id')
+  @Delete(':id')
   remove(@Param('id') id: string) {
     return this.storiesService.remove(id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() story: UpdateStoryDTO) {
+    return this.storiesService.update(id, story);
   }
 }
