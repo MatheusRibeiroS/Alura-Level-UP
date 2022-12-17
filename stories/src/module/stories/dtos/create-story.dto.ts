@@ -1,7 +1,7 @@
 import { IsString, IsInt, Min, IsNotEmpty, IsOptional } from "class-validator";
-import { StoryEntity } from "../entities/story.entity.js";
+import { Story } from "../model/story.model.js"
 
-export class CreateStoryDTO implements Omit<StoryEntity, "id" | "createdAt" | "updatedAt"> {
+export class CreateStoryDTO {
   
   @IsNotEmpty()
   @IsString()
