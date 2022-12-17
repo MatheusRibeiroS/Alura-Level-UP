@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpExceptionOptions, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Story } from '../model/story.model.js';
 import { CreateStoryDTO } from '../dtos/create-story.dto.js';
 import { UpdateStoryDTO } from '../dtos/update-story.dto.js';
+import { AccountVerificationService }  from '../../accounts/service/account-verification.service.js';
 
 @Injectable()
 export class StoriesService {
@@ -23,8 +24,12 @@ export class StoriesService {
     });
   }
 
-  create(story: CreateStoryDTO): Promise<Story> {
-    return this.storyModel.create({...story});
+  async create(story: CreateStoryDTO): Promise<Story | HttpExceptionOptions> {
+    // account verification service
+    const verification = await AccountVerificationService(story.userId);
+    if(verification) {
+      return this.storyModel.create({...story});
+    }
   }
 
   async remove(id: string): Promise<void> {
