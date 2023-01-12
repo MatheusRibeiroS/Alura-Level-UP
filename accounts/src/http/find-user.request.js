@@ -8,12 +8,11 @@ export default class FindUserRequest {
   async execute(request, response) {
     const id = request.params.id;
     // find one account by id
-    let user;
     try  {
-      user = await this.#userRepository.findOne(id);
+      const user = await this.#userRepository.findOne(id);
+      return response.status(200).send({ userId: id, message: `Account with id: ${id} found!`, user});
     } catch (error) {
       return response.status(404).send({ message: `Account with id: ${id} not found!` });
-    }
-      return response.status(200).send({ id: id, message: `Account with id: ${id} found!`});
+    } 
   }
 }

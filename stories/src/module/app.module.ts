@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from '../controller/app.controller.js';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import { AppService } from '../service/app.service.js';
 import { StoryModule } from './stories/stories.module.js'
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Story } from '../module/stories/model/story.model.js';
-dotenv.config();
 
 @Module({
   imports: [
