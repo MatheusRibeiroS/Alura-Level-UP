@@ -15,13 +15,13 @@ export default function Feed() {
   };
 
   const fetchUserData = async () => {
-    return await getUserAccount("cbd32fa0-6ecb-4adb-a657-f9bfb4ecf25f");;
+    return await getUserAccount("cbd32fa0-6ecb-4adb-a657-f9bfb4ecf25f");
   };
 
   useEffect(() => {
     fetchStoryData()
       .then((res) => {
-        setStories(res as any);
+        setStories(res);
       })
       .catch((e) => {
         console.log(e.message);
@@ -29,7 +29,7 @@ export default function Feed() {
 
     fetchUserData()
       .then((res) => {
-        setUser(res as any);
+        setUser(res);
       })
       .catch((e) => {
         console.log(e.message);
