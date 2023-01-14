@@ -1,17 +1,19 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import express from 'express';
 import { accountRoutes } from './http/routes/account-routes.js';
 import { errorMiddleware } from './http/middlewares/error-handler.middleware.js';
 import routes from './http/routes/index.js';
+import cors from 'cors';
 
-dotenv.config();
 const port = process.env.SERVER_PORT || 3000;
 const app = express();
+
+app.use(cors());
+
 routes(app);
 
 app.use(express.json());
 app.use(accountRoutes);
-
 app.use(errorMiddleware);
 
 app.listen(port, () => {
