@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import NavBar from "../../components/navbar/navbar";
 import ProfileHeader from "../../components/profile/header/ProfileHeader";
-import StoryList from "../../components/userStory/storyList";
 import getUserAccount from "../../http/getUserAccount";
 import { UserInterface } from "../../interfaces/interfaces";
 
