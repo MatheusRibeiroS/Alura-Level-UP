@@ -9,7 +9,7 @@ export default function StoryList({stories, user}: {stories: StoryInterface[], u
     <>
       {orderedStories.map((story: StoryInterface, index) => {
         return (
-          <div className="flexpt-1 pb-1" key={index}>
+          <div className="pb-1" key={index}>
             <div key={story.id} className="bg-blue-900 text-white p-2">
               <section className="flex">
                 <h2 className="font-bold text-orange-400 pr-2">{user.name},</h2>

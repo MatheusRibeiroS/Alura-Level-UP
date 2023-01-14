@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Feed from "./pages";
+import Router from "./routes";
 import "tailwindcss/tailwind.css";
 
 const root = ReactDOM.createRoot(
@@ -8,6 +8,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Feed />
+    <Router />
   </React.StrictMode>
 );

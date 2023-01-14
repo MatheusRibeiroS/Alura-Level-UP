@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "../components/navbar/navbar";
-import StoryList from "../components/userStory/storyList";
-import WelcomeUserBar from "../components/welcome-user-bar/welcomeUserBar";
-import getUsersStories from "../http/getUsersStories";
-import getUserAccount from "../http/getUserAccount";
-import { UserInterface, StoryInterface } from "../interfaces/interfaces";
+import NavBar from "../../components/navbar/navbar";
+import StoryList from "../../components/userStory/storyList";
+import UserBar from "../../components/user-bar/welcomeUserBar";
+import getUsersStories from "../../http/getUsersStories";
+import getUserAccount from "../../http/getUserAccount";
+import { UserInterface, StoryInterface } from "../../interfaces/interfaces";
 
 export default function Feed() {
   const [user, setUser] = useState<UserInterface>();
@@ -37,16 +37,16 @@ export default function Feed() {
   }, []);
 
   return (
-    <>
-      <div className="bg-black">
-        <NavBar />
-        {user && (
-          <>
-            <WelcomeUserBar name={user.name} />
-            <StoryList stories={stories} user={user} />
-          </>
-        )}
-      </div>
-    </>
+    <main>
+      <NavBar />
+      {user && (
+        <>
+          <UserBar
+            message={`Welcome, ${user.name}! This is your Story Feed.`}
+          />
+          <StoryList stories={stories} user={user} />
+        </>
+      )}
+    </main>
   );
 }
